@@ -13,17 +13,42 @@
 .main{
     margin: 0 auto;
     padding: 0;
-    width: 1500px;
+    min-width: 1500px;
 }
 .calendar{
     margin: 0 auto;
+    font-size: 10px;
 }
 .day{
-    height: 800px;
-    background-color: red;
+    padding: 0;
+}
+.day table{
+    width: 100%;
+}
+.table__header{
+    border: 1px solid #000000;
+    border-bottom: 3px solid #000000;
+    font-size: 14px;
+    text-align: center;
+}
+.table__row{
+    height: 16px;
+}
+.table__date{
+    border: 1px solid #000000;
+}
+.table__HourTd{
+    border-bottom: 2px solid #000000;
 }
 @media only screen and (max-width: 1500px) {
 .main{
-    width: 1200px;
+    max-width: 1200px;
+    min-width: 0;
+}
+}
+@media only screen and (max-width: 1200px) {
+.main{
+    max-width: 800px;
+    
 }
 }
