@@ -36,6 +36,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="addingEvents col-sm-6 col-lg-offset-4 col-sm-offset-3">
+                    <form>
+                        <label for="Name">Day</label>
+                        <select id="day">
+                            <option>mon</option>
+                            <option>tues</option>
+                            <option>wed</option>
+                            <option>thurs</option>
+                            <option>fri</option>
+                        </select>
+                        <label for="hour">Day</label>
+                        <select id="hour">
+                            <?php
+                            for($i=6 ; $i<22 ; $i++){
+                                echo '<option>' . $i . '</option>';
+                            }
+                            ?>
+                        </select>
+                        <label for="Name">Day</label>
+                        <select id="day">
+                            <?php
+                            for($i=0 ; $i<4 ; $i++){
+                                $minutes=15*$i;
+                                echo '<option>' . $minutes . '</option>';
+                            }
+                            ?>
+                        </select>
+                        <label for="Name">Event Name</label>
+                        <input type="text" name="Name">
+                    </form>
+                </div>
             </div>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="http://code.jquery.com/jquery.min.js"></script>
