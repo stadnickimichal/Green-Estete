@@ -17,6 +17,7 @@
 }
 .calendar{
     margin: 0 auto;
+    padding: 0 15px;
     font-size: 10px;
 }
 .day{
