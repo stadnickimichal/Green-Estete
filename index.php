@@ -20,21 +20,45 @@
                 <div class="row">
                     <div class="calendar">
                     <?php
+                    $conn=new mysqli('localhost','root','','calendar');
+                    if($conn->connect_errno) die($conn->connect_errno);
+                    $query="SELECT * FROM events";
+                    $result= $conn->query($query);
+                    if(!$result) die ($conn->error);
+                    $days[]="mond";
+                    $days[]="tues";
+                    $days[]="weds";
+                    $days[]="thur";
+                    $days[]="frid";
                     for ($j=0 ; $j<5 ; $j++){
+                        $result->data_seek($j);
+                        $row= $result->fetch_array(MYSQLI_ASSOC);
                         echo '<div class="col-sm-2 col-sm-12 day';
-                        if($j==0){echo ' col-sm-offset-1';}
+                        if($j==0)echo ' col-sm-offset-1';
                         echo '">';
                             echo '<table>';
                                 echo '<th class="table__header">Piniedzia³ek</th>';
                                 for($i=0 ; $i<64 ; $i++){
+                                    $Oclock= 6+15*$i;
                                     echo '<tr class="table__row"><td class="table__date';
                                     if($i%4==3){
                                             echo ' table__HourTd';
                                         }
-                                    echo '">';
+                                    echo '" ';
+                                    if(($days[$j]==$row['dat'])&&($Oclock==$row['begining'])){
+                                        $length=($row['ending']-$row['begining']);
+                                        $hours= (int) $length;
+                                        $minutes=$length-$hours;
+                                        $duration=$hours*4+$minutes/0.15;
+                                        echo 'rowspan="' . $duration .'"';
+                                        $i=$i+$duration;
+                                    }
+                                    echo '>';
                                     if($i%4==0){
-                                            echo 6+$i/4 . ":00";
+                                        $h=6+$i/4;
+                                        echo "<strong>" . $h . ":00</strong>";
                                         }
+                                    echo $days[$j] . " " . $Oclock;
                                     echo '</td></tr>';
                                 }
                             echo '</table>';
