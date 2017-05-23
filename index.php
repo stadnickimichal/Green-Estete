@@ -19,21 +19,28 @@
             <div class="main container">
                 <div class="row">
                     <div class="calendar">
-                        <div class="col-sm-2 col-sm-12 col-md-offset-1 day monday">
-                        
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                        
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                        
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                        
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                            
-                        </div>
+                    <?php
+                    for ($j=0 ; $j<5 ; $j++){
+                        echo '<div class="col-sm-2 col-sm-12 day';
+                        if($j==0){echo ' col-sm-offset-1';}
+                        echo '">';
+                            echo '<table>';
+                                echo '<th class="table__header">Piniedzia³ek</th>';
+                                for($i=0 ; $i<64 ; $i++){
+                                    echo '<tr class="table__row"><td class="table__date';
+                                    if($i%4==3){
+                                            echo ' table__HourTd';
+                                        }
+                                    echo '">';
+                                    if($i%4==0){
+                                            echo 6+$i/4 . ":00";
+                                        }
+                                    echo '</td></tr>';
+                                }
+                            echo '</table>';
+                        echo '</div>';
+                    }
+                    ?>
                     </div>
                 </div>
             </div>
