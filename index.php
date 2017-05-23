@@ -20,10 +20,13 @@
             <div class="main container">
                 <div class="row">
                     <div class="calendar">
-                        <div class="col-sm-2 col-sm-12 col-sm-offset-1 day monday">
-                            <table> 
-                                <th class="table__header">Piniedzia³ek</th>
-                            <?php
+                    <?php
+                    for ($j=0 ; $j<5 ; $j++){
+                        echo '<div class="col-sm-2 col-sm-12 day';
+                        if($j==0){echo ' col-sm-offset-1';}
+                        echo '">';
+                            echo '<table>';
+                                echo '<th class="table__header">Piniedzia³ek</th>';
                                 for($i=0 ; $i<64 ; $i++){
                                     echo '<tr class="table__row"><td class="table__date';
                                     if($i%4==3){
@@ -35,81 +38,10 @@
                                         }
                                     echo '</td></tr>';
                                 }
-                            ?>
-                            </table>
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                            <table> 
-                                <th class="table__header">Wtorek</th>
-                            <?php
-                                for($i=0 ; $i<64 ; $i++){
-                                    echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
-                                            echo ' table__HourTd';
-                                        }
-                                    echo '">';
-                                    if($i%4==0){
-                                            echo 6+$i/4 . ":00";
-                                        }
-                                    echo '</td></tr>';
-                                }
-                            ?>
-                            </table>
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                            <table> 
-                                <th class="table__header">Œroda</th>
-                            <?php
-                                for($i=0 ; $i<64 ; $i++){
-                                    echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
-                                            echo ' table__HourTd';
-                                        }
-                                    echo '">';
-                                    if($i%4==0){
-                                            echo 6+$i/4 . ":00";
-                                        }
-                                    echo '</td></tr>';
-                                }
-                            ?>
-                            </table>
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                            <table> 
-                                <th class="table__header">Czwartek</th>
-                            <?php
-                                for($i=0 ; $i<64 ; $i++){
-                                    echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
-                                            echo ' table__HourTd';
-                                        }
-                                    echo '">';
-                                    if($i%4==0){
-                                            echo 6+$i/4 . ":00";
-                                        }
-                                    echo '</td></tr>';
-                                }
-                            ?>
-                            </table>
-                        </div>
-                        <div class="col-sm-2 col-sm-12 day">
-                            <table> 
-                                <th class="table__header">Pi¹tek</th>
-                            <?php
-                                for($i=0 ; $i<64 ; $i++){
-                                    echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
-                                            echo ' table__HourTd';
-                                        }
-                                    echo '">';
-                                    if($i%4==0){
-                                            echo 6+$i/4 . ":00";
-                                        }
-                                    echo '</td></tr>';
-                                }
-                            ?>
-                            </table>
-                        </div>
+                            echo '</table>';
+                        echo '</div>';
+                    }
+                    ?> 
                     </div>
                 </div>
             </div>
