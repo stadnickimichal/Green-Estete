@@ -37,14 +37,14 @@
                     </div>
                 </div>
                 <div class="addingEvents col-sm-6 col-lg-offset-4 col-sm-offset-3">
-                    <form>
+                    <form action="index.php" method="POST">
                         <label for="Name">Day</label>
                         <select id="day">
-                            <option>mon</option>
+                            <option>mond</option>
                             <option>tues</option>
-                            <option>wed</option>
-                            <option>thurs</option>
-                            <option>fri</option>
+                            <option>weds</option>
+                            <option>thur</option>
+                            <option>frid</option>
                         </select>
                         <label for="hour">Day</label>
                         <select id="hour">
@@ -65,6 +65,7 @@
                         </select>
                         <label for="Name">Event Name</label>
                         <input type="text" name="Name">
+                        <input type="submit" value="+">
                     </form>
                 </div>
             </div>
