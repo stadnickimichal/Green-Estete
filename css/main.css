@@ -40,7 +40,11 @@
     border: 1px solid #000000;
 }
 .table__HourTd{
-    border-bottom: 2px solid #000000;
+    border-top: 2px solid #000000;
+}
+.event {
+    text-align: center;
+    font-weight: 600;
 }
 @media only screen and (max-width: 1500px) {
 .main{
