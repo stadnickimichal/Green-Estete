@@ -36,37 +36,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="addingEvents col-sm-6 col-lg-offset-4 col-sm-offset-3">
+                <div class="addingEvents col-sm-11 col-lg-10 col-sm-offset-1 col-lg-offset-2">
+                    <?php
+                    echo <<<_END
                     <form action="index.php" method="POST">
-                        <label for="Name">Day</label>
-                        <select id="day">
+                        <label for="Name">Event Name</label>
+                        <input type="text" name="Name" class=eventName>
+                        <label for="day">Day</label>
+                        <select id="day" name="day">
                             <option>mond</option>
                             <option>tues</option>
                             <option>weds</option>
                             <option>thur</option>
                             <option>frid</option>
                         </select>
-                        <label for="hour">Day</label>
-                        <select id="hour">
-                            <?php
-                            for($i=6 ; $i<22 ; $i++){
-                                echo '<option>' . $i . '</option>';
-                            }
-                            ?>
-                        </select>
-                        <label for="Name">Day</label>
-                        <select id="day">
-                            <?php
-                            for($i=0 ; $i<4 ; $i++){
-                                $minutes=15*$i;
-                                echo '<option>' . $minutes . '</option>';
-                            }
-                            ?>
-                        </select>
-                        <label for="Name">Event Name</label>
-                        <input type="text" name="Name">
-                        <input type="submit" value="+">
-                    </form>
+                        <label>Begining:</label>
+_END;
+                        echo "<input type='number' name='begH' min='6' max='21' placeholder='-' class='numb'>";
+                        select('begMin');
+                        echo "<label>Ending:</label>";
+                        echo "<input type='number' name='endH' min='6' max='21' placeholder='-' class='numb'>";
+                        select('endMin');
+                        echo "<input type='submit' value='+'>";
+                        echo "</form>";
+                        if(isset($_POST['Name'])&&(isset($_POST['day']))&&(isset($_POST['begH']))&&(isset($_POST['begMin']))&&(isset($_POST['endH']))&&(isset($_POST['endMin']))){
+                            $query="INSERT INTO events('title','dat','title','title','title','title')";
+                            header('Location: RPG.php');
+                        }
+                        function select($name){
+                            echo "<select name='" . $name . "' class='numb'>";
+                            echo "<option value='' disabled selected>-</option>";
+                                for($i=0 ; $i<4 ; $i++){
+                                    $minutes=15*$i;
+                                    echo '<option>' . $minutes . '</option>';
+                                }
+                            echo "</select>";
+                        }
+                    ?>
                 </div>
             </div>
         <script src="js/jquery-3.2.1.min.js"></script>
