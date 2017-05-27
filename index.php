@@ -13,7 +13,7 @@
                 <div class="navbar-header hidden-xs">
                     <i class="header__logo fa fa-calendar" aria-hidden="true"></i>
                 </div>
-                <span class="header__title">TWÃ“J KALENDARZ</span>
+                <span class="header__title">TWÓJ KALENDARZ</span>
             </div>
         </nav>
             <div class="main container">
@@ -25,44 +25,50 @@
                     $query="SELECT * FROM events";
                     $result= $conn->query($query);
                     if(!$result) die ($conn->error);
+                    $rows=$result->num_rows;
                     $days[]="mond";
                     $days[]="tues";
                     $days[]="weds";
                     $days[]="thur";
                     $days[]="frid";
                     for ($j=0 ; $j<5 ; $j++){
-                        $result->data_seek($j);
-                        $row= $result->fetch_array(MYSQLI_ASSOC);
                         echo '<div class="col-sm-2 col-sm-12 day';
                         if($j==0)echo ' col-sm-offset-1';
                         echo '">';
                             echo '<table>';
-                                echo '<th class="table__header">Piniedzia³ek</th>';
+                                echo '<th class="table__header">' . $days[$j] . '</th>';
                                 for($i=0 ; $i<64 ; $i++){
-                                    $Oclock= 6+15*$i;
+                                    $min= 15*($i%4);
+                                    $h=6+$i/4;
+                                    $h=(int)$h;
                                     echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
-                                            echo ' table__HourTd';
-                                        }
+                                    if($i%4==0)echo ' table__HourTd';
                                     echo '" ';
-                                    if(($days[$j]==$row['dat'])&&($Oclock==$row['begining'])){
-                                        $length=($row['ending']-$row['begining']);
-                                        $hours= (int) $length;
-                                        $minutes=$length-$hours;
-                                        $duration=$hours*4+$minutes/0.15;
-                                        echo 'rowspan="' . $duration .'"';
-                                        $i=$i+$duration;
-                                    }
-                                    echo '>';
-                                    if($i%4==0){
-                                        $h=6+$i/4;
-                                        echo "<strong>" . $h . ":00</strong>";
-                                        }
-                                    echo $days[$j] . " " . $Oclock;
+                                    $i=serchForEvents($result, $days[$j], $min, $h, $i);
+                                    if($i%4==0) echo "<strong>" . $h . ":00</strong>";
                                     echo '</td></tr>';
                                 }
                             echo '</table>';
                         echo '</div>';
+                    }
+                    function serchForEvents ($result, $day, $min, $h, $index){
+                        $event="";
+                        for ($k=0 ; $k<$result->num_rows ; $k++){
+                            $result->data_seek($k);
+                            $row= $result->fetch_array(MYSQLI_ASSOC);
+                            if(($day==$row['dat'])&&($min==$row['beginingMinutes'])&&($h==$row['beginingH'])){
+                                $length=($row['endingH'] - $row['beginingH'])*4 + $row['endingMinutes']/15 - $row['beginingMinutes']/15;
+                                echo ' style="height:' . $length*16 . 'px"';
+                                $index=$index+$length-1;
+                                $event=$row['beginingH'].":".$row['beginingMinutes']." - ".$row['endingH'].":"
+                                        .$row['endingMinutes']."<br>". $row['title'];
+                            }
+                        }
+                        echo '>';
+                        if($event!=0){
+                            echo  "<p class='event'>".$event."</p>";
+                        }
+                        return $index;
                     }
                     ?>
                     </div>
