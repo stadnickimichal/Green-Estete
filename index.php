@@ -38,6 +38,8 @@
                 </div>
                 <div class="addingEvents col-sm-11 col-lg-10 col-sm-offset-1 col-lg-offset-2">
                     <?php
+                    $conn=new mysqli('localhost','root','','calendar'); 
+                    if($conn->connect_errno) die($conn->connect_errno);
                     echo <<<_END
                     <form action="index.php" method="POST">
                         <label for="Name">Event Name</label>
@@ -60,7 +62,16 @@ _END;
                         echo "<input type='submit' value='+'>";
                         echo "</form>";
                         if(isset($_POST['Name'])&&(isset($_POST['day']))&&(isset($_POST['begH']))&&(isset($_POST['begMin']))&&(isset($_POST['endH']))&&(isset($_POST['endMin']))){
-                            $query="INSERT INTO events('title','dat','title','title','title','title')";
+                            $name=$_POST['Name'];
+                            $day=$_POST['day'];
+                            $begH=$_POST['begH'];
+                            $begMin=$_POST['begMin'];
+                            $endH=$_POST['endH'];
+                            $endMin=$_POST['endMin'];
+                            $query="INSERT INTO `events`(`title`, `dat`, `beginingMinutes`, `endingMinutes`, `beginingH`, `endingH`)".
+                            "VALUES ('$name','$day','$begMin','$endMin','$begH','$endH')";
+                            $result=$conn->query($query);
+                            if(!$result) die($conn->error);
                             header('Location: RPG.php');
                         }
                         function select($name){
