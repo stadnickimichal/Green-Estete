@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['count'])){
+    $_SESSION['count'] = 1;} 
+else {
+    $_SESSION['count']++;}
+?>
 <html>
     <head>
         <title>Kalendarz</title>
@@ -22,9 +29,7 @@
                     <?php
                     $conn=new mysqli('localhost','root','','calendar');
                     if($conn->connect_errno) die($conn->connect_errno);
-                    $query="SELECT * FROM events";
-                    $result= $conn->query($query);
-                    if(!$result) die ($conn->error);
+                    $result=changeDatabase($conn);
                     $days= array("mond" ,"tues", "weds", "thur", "frid");
                     for ($j=0 ; $j<5 ; $j++){
                         echo '<div class="col-sm-2 col-sm-12 day';
@@ -39,6 +44,41 @@
                                 }
                             echo '</table>';
                         echo '</div>';
+                    }
+                    function changeDatabase($conn){
+                        $result=loadEvents($conn);
+                        $num_rows=$result->num_rows;
+                        if(isset($_POST['Name'])&&(isset($_POST['day']))&&(isset($_POST['begH']))&&
+                                (isset($_POST['begMin']))&&(isset($_POST['endH']))&&(isset($_POST['endMin']))){
+                            if(double_form_send($result,$_POST['day'],$_POST['begMin'],$_POST['begH'])){ //sprawdzanie czy na dan¹ godzinê nie ma inego wydarzenia
+                            $values=array(mysql_fix_string($conn,$_POST['Name']), mysql_fix_string($conn,$_POST['day']),
+                                mysql_fix_string($conn,$_POST['begMin']), mysql_fix_string($conn,$_POST['endMin']),
+                                mysql_fix_string($conn,$_POST['begH']), mysql_fix_string($conn,$_POST['endH']));
+                            $query="INSERT INTO `events`(`title`, `dat`, `beginingMinutes`, `endingMinutes`, `beginingH`, `endingH`)".
+                            "VALUES ('$values[0]','$values[1]','$values[2]','$values[3]','$values[4]','$values[5]')";
+                            $result=$conn->query($query);
+                            if(!$result) die($conn->error);
+                            }
+                        }
+                        for($i=0 ; $i<$num_rows ; $i++){
+                            if (is_object($result)) {
+                                $result->data_seek($i);
+                                $row= $result->fetch_array(MYSQLI_ASSOC);
+                                if(isset($_POST["execute" . $i . ($_SESSION['count']-1)])){
+                                    $query="DELETE FROM `events` WHERE `dat`='".$row['dat']."' AND`beginingMinutes`='"
+                                            .$row['beginingMinutes']."' AND`beginingH`='".$row['beginingH']."';";
+                                    $result=$conn->query($query);
+                                    if(!$result) die($conn->error);
+                                }
+                            }
+                        }
+                        return loadEvents($conn);
+                    }
+                    function loadEvents($conn){
+                        $query="SELECT * FROM events";
+                        $result= $conn->query($query);
+                        if(!$result) die ($conn->error);
+                        return $result;
                     }
                     function addingRows ($result, $day, $min, $h, $index){
                         $prev_index=$index;
@@ -56,7 +96,7 @@
                                 $event=$row['beginingH'].":".$row['beginingMinutes']." - ".$row['endingH']
                                         .":".$row['endingMinutes']."<br>". $row['title'];
                                 echo '>';
-                                //removingButton($day,$min,$h,$index);
+                                removingButton($day,$min,$h,$k);
                             }
                         }
                         if($event=="") echo '>';
@@ -66,21 +106,10 @@
                         return $index;
                     }
                     function removingButton($d, $m, $h, $index){
-                        if(isset($_POST['execute'.$index])){
-                            echo "wchodzi";
-                            global $conn;
-                            $query="DELETE FROM `events` WHERE `dat`='$d' AND`beginingMinutes`='$m' AND`beginingH`='$h';";
-                            $result=$conn->query($query);
-                            if(!$result) die($conn->error);
-                            header('Location: RPG.php');
-                        }
-                        echo <<<_END
-                        <form action="index.php" method="post" class="deleteBtn">
-                            <input type="hidden" name="execute$index" value="true">
-                            <input type="submit" value="X" class="deleteBtn">
-                        </form>
-_END;
-                        //header('Location: RPG.php');
+                        echo "<form action='index.php' method='post' class='deleteBtn'>";
+                        echo    "<input type='hidden' name='execute" . $index . $_SESSION['count'] . "' value='true'>";
+                        echo    "<input type='submit' value='X' class='deleteBtn'>";
+                        echo "</form>";
                     }
                     ?>
                     </div>
@@ -91,9 +120,8 @@ _END;
                     eventForm();
                     function eventForm(){
                         global $result, $conn, $days;
-                        $doubleInsert=1;
                         echo <<<_END
-                        <form action="index.php" method="POST">
+                        <form action="index.php" method="post">
                         <label for="Name">Event Name</label>
                         <input type="text" name="Name" class=eventName>
                         <label for="day">Day</label>
@@ -110,37 +138,29 @@ _END;
                         select('endMin');
                         echo "<input type='submit' value='+'>";
                         echo "</form>";
+                    }
+                    function double_form_send($result, $day, $min, $h){
+                        $doubleInsert=1;
                         for ($i=0 ; $i<$result->num_rows ; $i++){
                             $result->data_seek($i);
                             $row2= $result->fetch_array(MYSQLI_ASSOC);
-                            if(($_POST['day']==$row2['dat'])&&($_POST['begMin']==$row2['beginingMinutes'])&&
-                                ($_POST['begH']==$row2['beginingH']))
+                            if(($_POST['day']==$row2['dat'])&&($_POST['begMin']==$row2['beginingMinutes'])
+                                    &&($_POST['begH']==$row2['beginingH']))
                                 $doubleInsert=0;
                         }
-                        if(($doubleInsert==1)&&isset($_POST['Name'])&&(isset($_POST['day']))&&(isset($_POST['begH']))&&
-                                (isset($_POST['begMin']))&&(isset($_POST['endH']))&&(isset($_POST['endMin']))){
-                            $values=array(mysql_fix_string($conn,$_POST['Name']), mysql_fix_string($conn,$_POST['day']),
-                                mysql_fix_string($conn,$_POST['begH']), mysql_fix_string($conn,$_POST['begMin']),
-                                mysql_fix_string($conn,$_POST['endH']), mysql_fix_string($conn,$_POST['endMin']));
-                            $query="INSERT INTO `events`(`title`, `dat`, `beginingMinutes`, `endingMinutes`, `beginingH`, `endingH`)".
-                            "VALUES ('$values[0]','$values[1]','$values[2]','$values[3]','$values[4]','$values[5]')";
-                            $result=$conn->query($query);
-                            if(!$result) die($conn->error);
-                        }
+                        return $doubleInsert;
                     }
-                        function select($name){
-                            echo "<select name='" . $name . "' class='numb'>";
-                            echo "<option value='' disabled selected>-</option>";
-                                for($i=0 ; $i<4 ; $i++){
-                                    $minutes=15*$i;
-                                    echo '<option>' . $minutes . '</option>';
-                                }
-                            echo "</select>";
-                        }
-                        function mysql_fix_string($conn, $string){
-                            if(get_magic_quotes_gpc()) $string=stripslashes($string);
-                            return $conn->real_escape_string($string);
-                        }
+                    function select($name){
+                        echo "<select name='" . $name . "' class='numb'>";
+                        echo "<option value='' disabled selected>-</option>";
+                            for($i=0 ; $i<4 ; $i++){
+                                $minutes=15*$i;
+                                echo '<option>' . $minutes . '</option>';
+                            }
+                        echo "</select>";}
+                    function mysql_fix_string($conn, $string){
+                        if(get_magic_quotes_gpc()) $string=stripslashes($string);
+                        return $conn->real_escape_string($string);}
                     ?>
                 </div>
             </div>
