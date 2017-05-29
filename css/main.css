@@ -1,6 +1,6 @@
 .header{
     height: 80px;
-    max-width: 1500px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 10px;
     font-size: 40px;
@@ -16,7 +16,7 @@
     min-width: 1500px;
 }
 .calendar{
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
     padding: 0 15px;
     font-size: 10px;
 }
@@ -35,37 +35,90 @@
 .table__row{
     height: 16px;
 }
+.table__row:hover{
+    background-color: yellow;
+}
 .table__date{
     font-size: 12px;
     border: 1px solid #000000;
+    position:relative;
 }
 .table__HourTd{
     border-top: 2px solid #000000;
 }
-.event {
+.event{
+    background-color: green;
+    border-radius: 15px;
+}
+.event p{
     text-align: center;
     font-weight: 600;
+    color: black;
+}
+.eventName{
+    width: 120px;
+    height: 25px;
 }
 .deleteBtn{
-    width: 10px;
-    height: 10px;
-    margin: 0;
+    margin: 10px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.deleteBtn input{
+    width: 15px;
+    height: 15px;
+    border: 1px solid;
     padding: 0;
+    border-radius: 5px;
     font-size: 10px;
     font-weight: 700;
     background-color: red;
-    border: 0;
-    border-radius: 3px;
+}
+.addingEvents{
+    padding: 0;
+}
+.eventForm{
+    overflow: hidden;
+}
+.eventForm i{
+    font-size: 25px;
+}
+.eventForm div{
+    background-color: #FAFAE7;
+    float: left;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 15px;
+}
+.eventForm label{
+    margin-left: 10px;
+}
+.eventForm input[type=submit]{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+.numb{
+    width: 42px;
+    height: 25px;
 }
 @media only screen and (max-width: 1500px) {
 .main{
     max-width: 1200px;
     min-width: 0;
 }
+.eventForm div{
+    margin-left: 30px;
+}
 }
 @media only screen and (max-width: 1200px) {
 .main{
     max-width: 800px;
-    
+}
+.eventForm div{
+    margin-left: 0;
 }
 }
