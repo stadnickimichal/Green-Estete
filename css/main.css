@@ -76,7 +76,9 @@
     background-color: red;
 }
 .addingEvents{
+    margin: 0 auto;
     padding: 0;
+    width: 650px;
 }
 .eventForm{
     overflow: hidden;
@@ -110,15 +112,9 @@
     max-width: 1200px;
     min-width: 0;
 }
-.eventForm div{
-    margin-left: 30px;
-}
 }
 @media only screen and (max-width: 1200px) {
 .main{
     max-width: 800px;
-}
-.eventForm div{
-    margin-left: 0;
 }
 }

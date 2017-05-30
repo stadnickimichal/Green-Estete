@@ -35,7 +35,8 @@ else {
                     ?>
                 </div>
             </div>
-            <div class="addingEvents col-sm-11 col-lg-10 col-sm-offset-1 col-lg-offset-2">
+            <div class="addingEvents">
+                <!--  col-sm-11 col-lg-10 col-sm-offset-1 col-md-offset-2 col-lg-offset-3 -->
                 <?php
                 eventForm($result, $conn, $days);
                 ?>
