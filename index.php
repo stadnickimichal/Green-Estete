@@ -36,12 +36,12 @@
                         echo '<div class="col-sm-2 col-sm-12 day';
                         if($j==0)echo ' col-sm-offset-1';
                         echo '">';
-                            echo '<table>';
-                                echo '<th class="table__header">Piniedzia³ek</th>';
+                            echo '<table id="'.$days[$j].'">';
+                                echo '<th class="table__header">'.$days[$j].'</th>';
                                 for($i=0 ; $i<64 ; $i++){
                                     $Oclock= 6+15*$i;
-                                    echo '<tr class="table__row"><td class="table__date';
-                                    if($i%4==3){
+                                    echo '<tr class="table__row"><td id="' . $days[$j]. '-' . $i . '" class="table__date';
+                                    if($i%4==0){
                                             echo ' table__HourTd';
                                         }
                                     echo '" ';
@@ -58,7 +58,6 @@
                                         $h=6+$i/4;
                                         echo "<strong>" . $h . ":00</strong>";
                                         }
-                                    echo $days[$j] . " " . $Oclock;
                                     echo '</td></tr>';
                                 }
                             echo '</table>';
@@ -77,11 +76,11 @@
                         <input type="text" name="Name" class=eventName>
                         <label for="day">Day</label>
                         <select id="day" name="day">
-                            <option>mond</option>
-                            <option>tues</option>
-                            <option>weds</option>
-                            <option>thur</option>
-                            <option>frid</option>
+                            <option value="mond">mond</option>
+                            <option value="tues">tues</option>
+                            <option value="weds">weds</option>
+                            <option value="thur">thur</option>
+                            <option value="frid">frid</option>
                         </select>
                         <label>Begining:</label>
 _END;
@@ -103,7 +102,6 @@ _END;
                             "VALUES ('$name','$day','$begMin','$endMin','$begH','$endH')";
                             $result=$conn->query($query);
                             if(!$result) die($conn->error);
-                            header('Location: RPG.php');
                         }
                         function select($name){
                             echo "<select name='" . $name . "' class='numb'>";
