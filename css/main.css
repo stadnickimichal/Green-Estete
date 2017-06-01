@@ -45,6 +45,9 @@
     border: 1px solid #000000;
     position: relative;
 }
+.table__date:hover{
+    background-color: yellow;
+}
 .table__HourTd{
     border-top: 2px solid #000000;
 }

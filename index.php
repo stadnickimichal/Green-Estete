@@ -101,7 +101,7 @@ function addingRows ($result, $day, $min, $h, $index){
     $prev_index=$index;
     $event="";
     echo '<tr class="table__row">';
-    echo ($index%4==0)?'<td class="table__date table__HourTd':'<td class="table__date';
+    echo ($index%4==0)?'<td class="table__date '. $days[$j] . '-' . $i . ' table__HourTd':'<td class="table__date ' . $days[$j] . '-' . $i;
     for ($k=0 ; $k<$result->num_rows ; $k++){
         $result->data_seek($k);
         $row= $result->fetch_array(MYSQLI_ASSOC);
@@ -155,7 +155,7 @@ function select($name,$days){
         echo "<option value='' disabled selected>-</option>";
     if ($name=='day'){
       for($i=0 ; $i<5 ; $i++)
-        echo "<option>$days[$i]</option>";
+        echo "<option value=$days[$i]>$days[$i]</option>";
     }
     else {
       for($i=0 ; $i<4 ; $i++){
