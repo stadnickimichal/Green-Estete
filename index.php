@@ -36,7 +36,6 @@ else {
                 </div>
             </div>
             <div class="addingEvents">
-                <!--  col-sm-11 col-lg-10 col-sm-offset-1 col-md-offset-2 col-lg-offset-3 -->
                 <?php
                 eventForm($result, $conn, $days);
                 ?>
@@ -127,20 +126,18 @@ function removingButton($d, $m, $h, $index){
 }
 function eventForm($result, $conn, $days){
     echo '<form action="index.php" method="post" class="eventForm">';
-        echo '<div>';
-            echo '<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>';
-            echo '<label for="Name">Name</label>';
-            echo '<input type="text" name="Name" class="eventName">';
-            echo '<label for="day">Day</label>';
-            select('day',$days);
-            echo "<label>Begining:</label>";
-            echo "<input type='number' name='begH' min='6' max='21' placeholder='-' class='numb'>";
-            select('begMin',$days);
-            echo "<label>Ending:</label>";
-            echo "<input type='number' name='endH' min='6' max='21' placeholder='-' class='numb'>";
-            select('endMin',$days);
-            echo "<input type='submit' value='+'>";
-        echo "</div>";
+        echo '<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>';
+        echo '<label for="Name">Name:</label>';
+        echo '<input type="text" name="Name" class="eventName">';
+        echo '<label for="day">Day:</label>';
+        select('day',$days);
+        echo "<label>Begining:</label>";
+        echo "<input type='number' name='begH' min='6' max='21' placeholder='-' class='numb'>:";
+        select('begMin',$days);
+        echo "<label>Ending:</label>";
+        echo "<input type='number' name='endH' min='6' max='21' placeholder='-' class='numb'>:";
+        select('endMin',$days);
+        echo "<input type='submit' value='+'>";
     echo "</form>";
 }
 function double_form_send($result, $day, $min, $h){

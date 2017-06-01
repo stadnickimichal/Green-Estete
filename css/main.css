@@ -41,13 +41,13 @@
 .table__date{
     font-size: 12px;
     border: 1px solid #000000;
-    position:relative;
+    position: relative;
 }
 .table__HourTd{
     border-top: 2px solid #000000;
 }
 .event{
-    background-color: green;
+    background-color: #33FF66;
     border-radius: 15px;
 }
 .event p{
@@ -73,22 +73,19 @@
     border-radius: 5px;
     font-size: 10px;
     font-weight: 700;
-    background-color: red;
-}
-.addingEvents{
-    margin: 0 auto;
-    padding: 0;
-    width: 650px;
+    background-color: #FF0000;
 }
 .eventForm{
     overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
+    width: 670px;
 }
 .eventForm i{
     font-size: 25px;
 }
-.eventForm div{
+.eventForm{
     background-color: #FAFAE7;
-    float: left;
     margin-top: 15px;
     padding: 10px;
     border: 1px solid;
@@ -100,8 +97,11 @@
 .eventForm input[type=submit]{
     margin-left: 10px;
     margin-right: 10px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    background-color: #FFCC33;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
 }
 .numb{
     width: 42px;
@@ -116,5 +116,10 @@
 @media only screen and (max-width: 1200px) {
 .main{
     max-width: 800px;
+}
+}
+@media only screen and (max-width: 673px) {
+.eventForm{
+    width: 100%;
 }
 }
