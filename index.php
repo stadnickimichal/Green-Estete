@@ -110,7 +110,7 @@ function addingRows ($result, $day, $min, $h, $index){
             $index=$index+$length-1;
             $event=$row['beginingH'].":".$row['beginingMinutes']." - ".$row['endingH'].":".$row['endingMinutes']."<br>". $row['title'];
             echo ' event" style="height:' . $length*16 . 'px">';
-            removingButton($day,$min,$h,$k);
+            removingButton($k);
          }
     }
     echo ($event=="")?'">':"<p>".$event."</p>";
@@ -118,7 +118,7 @@ function addingRows ($result, $day, $min, $h, $index){
     echo '</td></tr>';
     return $index;
 }
-function removingButton($d, $m, $h, $index){
+function removingButton($index){
     echo "<form action='index.php' method='post' class='deleteBtn'>";
     echo    "<input type='hidden' name='execute" . $index . $_SESSION['count'] . "' value='true'>";
     echo    "<input type='submit' value='X'>";
