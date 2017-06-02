@@ -20,7 +20,7 @@ else {
                 <div class="navbar-header hidden-xs">
                     <i class="header__logo fa fa-calendar" aria-hidden="true"></i>
                 </div>
-                <span class="header__title">TWÓJ KALENDARZ</span>
+                <span class="header__title">YOUR CALENDAR</span>
             </div>
         </nav>
         <div class="main container">
