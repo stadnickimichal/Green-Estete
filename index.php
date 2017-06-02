@@ -152,7 +152,7 @@ function double_form_send($result, $day, $min, $h){
     return $doubleInsert;
 }
 function select($name,$days){
-    echo "<select name='" . $name . "' class='numb'>";
+    echo "<select name='" . $name . "' class='numb' id='$name'>";
         echo "<option value='' disabled selected>-</option>";
     if ($name=='day'){
       for($i=0 ; $i<5 ; $i++)

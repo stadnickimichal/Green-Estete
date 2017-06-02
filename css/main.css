@@ -98,17 +98,15 @@
     overflow: hidden;
     margin: 0 auto;
     padding: 0;
-    width: 685px;
-}
-.eventForm i{
-    font-size: 25px;
-}
-.eventForm{
+    width: 688px;
     background-color: #FAFAE7;
     margin-top: 15px;
     padding: 10px;
     border: 1px solid;
     border-radius: 15px;
+}
+.eventForm i{
+    font-size: 25px;
 }
 .eventForm label{
     margin-left: 10px;
@@ -125,6 +123,9 @@
 .numb{
     width: 42px;
     height: 25px;
+}
+#day{
+    width: 60px;
 }
 @media only screen and (max-width: 1500px) {
 .main{
