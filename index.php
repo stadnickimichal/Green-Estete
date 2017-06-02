@@ -107,8 +107,8 @@ function addingRows ($result, $day, $min, $h, $index){
         $result->data_seek($k);
         $row= $result->fetch_array(MYSQLI_ASSOC);
         if(($day==$row['dat'])&&($min==$row['beginingMinutes'])&&($h==$row['beginingH'])){
-            $length=($row['endingH'] - $row['beginingH'])*4 + $row['endingMinutes']/15 - $row['beginingMinutes']/15;
-            $index=$index+$length-1;
+            $length=($row['endingH'] - $row['beginingH'])*4 + $row['endingMinutes']/15 - $row['beginingMinutes']/15+1;
+            $index=$index-1+$length;
             $event=$row['beginingH'].":".$row['beginingMinutes']." - ".$row['endingH'].":".$row['endingMinutes']."<br>". $row['title'];
             echo ' event" style="height:' . $length*16 . 'px">';
             removingButton($k);

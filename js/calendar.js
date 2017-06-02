@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         function2(element){
             let tdIndex= element.id.split("-")[1];
+            console.log(tdIndex);
             let min= (tdIndex%4)*15;
             let h= Math.floor(tdIndex/4)+6;
             $(element).css("background-color",'#33FF66');
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
         function4(){
-            console.log($(".inputTable")[0].value);
             this.input[0].value=$(".inputTable")[0].value;
             this.form.trigger('submit');
         }
