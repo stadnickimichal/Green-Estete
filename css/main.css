@@ -80,6 +80,20 @@
     font-weight: 700;
     background-color: #FF0000;
 }
+.addBtn{
+    position: absolute;
+    top: -48px;
+    left: 40%;
+}
+.inputTable{
+    margin-left: 5%;
+    width: 90%;
+    height: 20px;
+    position: absolute;
+    top: -16px;
+    padding: 0;
+    border: 0;
+}
 .eventForm{
     overflow: hidden;
     margin: 0 auto;
@@ -99,7 +113,7 @@
 .eventForm label{
     margin-left: 10px;
 }
-.eventForm input[type=submit]{
+.subnitBtn{
     margin-left: 10px;
     margin-right: 10px;
     width: 30px;

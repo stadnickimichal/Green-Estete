@@ -51,7 +51,7 @@ else {
 function createDays($days,$result){
     for ($j=0 ; $j<5 ; $j++){
         echo ($j==0)?'<div class="col-sm-2 col-sm-12 day col-sm-offset-1">':'<div class="col-sm-2 col-sm-12 day">';
-            echo '<table>';
+            echo "<table id='$days[$j]'>";
                 echo '<th class="table__header">' . $days[$j] . '</th>';
                 for($i=0 ; $i<64 ; $i++){
                     $min= 15*($i%4);
@@ -101,7 +101,8 @@ function addingRows ($result, $day, $min, $h, $index){
     $prev_index=$index;
     $event="";
     echo '<tr class="table__row">';
-    echo ($index%4==0)?'<td class="table__date '. $days[$j] . '-' . $i . ' table__HourTd':'<td class="table__date ' . $days[$j] . '-' . $i;
+        echo "<td id='$day-$index' ";
+    echo ($index%4==0)?'class="table__date table__HourTd':'class="table__date ';
     for ($k=0 ; $k<$result->num_rows ; $k++){
         $result->data_seek($k);
         $row= $result->fetch_array(MYSQLI_ASSOC);
@@ -137,7 +138,7 @@ function eventForm($result, $conn, $days){
         echo "<label>Ending:</label>";
         echo "<input type='number' name='endH' min='6' max='21' placeholder='-' class='numb'>:";
         select('endMin',$days);
-        echo "<input type='submit' value='+'>";
+        echo "<input type='submit' value='+' class='subnitBtn'>";
     echo "</form>";
 }
 function double_form_send($result, $day, $min, $h){
